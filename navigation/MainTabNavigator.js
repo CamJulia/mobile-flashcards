@@ -1,76 +1,69 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import {
+  createStackNavigator,
+  createBottomTabNavigator
+} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import DeckHomeScreen from '../screens/DeckHome';
+import DeckDetailScreen from '../screens/DeckDetail';
+import CreateDeckScreen from '../screens/CreateDeck';
+import AddCardScreen from '../screens/AddCard';
+import AllCardsScreen from '../screens/AllCards';
 
-const config = Platform.select({
-  web: { headerMode: 'screen' },
-  default: {},
+const DeckHomeStack = createStackNavigator({
+  DeckHome: { screen: DeckHomeScreen },
+  DeckDetails: {
+    screen: DeckDetailScreen,
+    navigationOptions: {
+      tabBarVisible: false
+    }
+  },
+  AddCard: AddCardScreen,
+  AllCards: AllCardsScreen
 });
 
-const HomeStack = createStackNavigator(
-  {
-    Home: HomeScreen,
-  },
-  config
-);
+DeckHomeStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarVisible,
+    tabBarLabel: 'DeckHome',
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={Platform.OS === 'ios' ? `ios-albums` : 'md-albums'}
+      />
+    )
+  };
+};
+
+DeckHomeStack.path = '';
+
+const CreateDeckStack = createStackNavigator({
+  CreateDeck: CreateDeckScreen
+});
+
+CreateDeckStack.navigationOptions = {
+  tabBarLabel: 'CreateDeck',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
+      name={Platform.OS === 'ios' ? 'ios-add' : 'md-add'}
     />
-  ),
+  )
 };
 
-HomeStack.path = '';
-
-const LinksStack = createStackNavigator(
-  {
-    Links: LinksScreen,
-  },
-  config
-);
-
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
-  ),
-};
-
-LinksStack.path = '';
-
-const SettingsStack = createStackNavigator(
-  {
-    Settings: SettingsScreen,
-  },
-  config
-);
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
-  ),
-};
-
-SettingsStack.path = '';
+CreateDeckStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
+  DeckHomeStack,
+  CreateDeckStack
 });
 
 tabNavigator.path = '';
