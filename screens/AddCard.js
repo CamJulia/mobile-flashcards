@@ -51,6 +51,7 @@ export default class AddCard extends React.Component {
           onPress={() => {
             addCardToDeck(deck.title, { title, body });
             this.setState({ title: '', body: '' });
+            this.props.navigation.goBack(null);
           }}
           title="create card"
         />
