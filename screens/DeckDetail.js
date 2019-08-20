@@ -23,6 +23,14 @@ export default class DeckDetail extends React.Component {
     const { params } = this.props.navigation.state;
     const deck = await getDeck(params.title);
     this.setState({ deck });
+
+    this._navListener = this.props.navigation.addListener(
+      'didFocus',
+      async () => {
+        const deck = await getDeck(params.title);
+        this.setState({ deck });
+      }
+    );
   }
 
   render() {
@@ -32,45 +40,57 @@ export default class DeckDetail extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View style={{ margin: 10 }}>
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('AllCards', {
-                title: deck.title
-              });
-            }}
-            title="Check out stack"
-          />
+        <View style={styles.header}>
+          <Text style={styles.headerText}>{deck.title}</Text>
+          <Text>{deck.cards.length} cards</Text>
         </View>
-        <View style={{ margin: 10 }}>
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('CardDetail', {
-                title: deck.title
-              });
-            }}
-            title="Flash it!"
-          />
-        </View>
-        <View style={{ margin: 10 }}>
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('AddCard', {
-                title: deck.title
-              });
-            }}
-            title="Add card to deck"
-          />
-        </View>
-        <View style={{ margin: 10 }}>
-          <Button
-            onPress={() => {
-              removeDeck(deck.title);
-              this.props.navigation.navigate('DeckHome');
-            }}
-            color="tomato"
-            title="Remove deck"
-          />
+        <View>
+          <View style={styles.button}>
+            <Button
+              onPress={() => {
+                this.props.navigation.navigate('AddCard', {
+                  title: deck.title
+                });
+              }}
+              title="Add card"
+            />
+          </View>
+
+          {!!deck.cards.length && (
+            <>
+              <View style={styles.button}>
+                <Button
+                  onPress={() => {
+                    this.props.navigation.navigate('CardDetail', {
+                      title: deck.title
+                    });
+                  }}
+                  title="Start quiz"
+                />
+              </View>
+
+              <View style={styles.button}>
+                <Button
+                  onPress={() => {
+                    this.props.navigation.navigate('AllCards', {
+                      title: deck.title
+                    });
+                  }}
+                  title="Check out stack"
+                />
+              </View>
+            </>
+          )}
+          <View style={styles.button}>
+            <Button
+              onPress={() => {
+                removeDeck(deck.title);
+                this.props.navigation.navigate('DeckHome');
+              }}
+              color="tomato"
+              title="Remove deck"
+            />
+          </View>
         </View>
       </View>
     );
@@ -88,6 +108,18 @@ DeckDetail.navigationOptions = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'green'
+    justifyContent: 'space-between'
+  },
+  header: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white'
+  },
+  headerText: {
+    fontSize: 20
+  },
+  button: {
+    margin: 20
   }
 });
