@@ -23,10 +23,6 @@ export default class DeckHomeScreen extends React.Component {
     );
   }
 
-  componentWillUnmount() {
-    this._navListener = this.props.navigation.removeListener('didFocus');
-  }
-
   render() {
     return (
       <View style={styles.container}>
