@@ -32,8 +32,6 @@ export default class Quiz extends React.Component {
   getCardIndex = cards => Math.floor(Math.random() * cards.length);
 
   render() {
-    console.log('this.state: ', this.state);
-
     if (!this.state.deck)
       return <ActivityIndicator color="black" style={{ flex: 1 }} size={50} />;
 
