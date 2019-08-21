@@ -11,6 +11,7 @@ import DeckDetailScreen from '../screens/DeckDetail';
 import CreateDeckScreen from '../screens/CreateDeck';
 import AddCardScreen from '../screens/AddCard';
 import AllCardsScreen from '../screens/AllCards';
+import QuizScreen from '../screens/Quiz';
 
 const DeckHomeStack = createStackNavigator({
   DeckHome: { screen: DeckHomeScreen },
@@ -21,7 +22,8 @@ const DeckHomeStack = createStackNavigator({
     }
   },
   AddCard: AddCardScreen,
-  AllCards: AllCardsScreen
+  AllCards: AllCardsScreen,
+  Quiz: QuizScreen
 });
 
 DeckHomeStack.navigationOptions = ({ navigation }) => {
