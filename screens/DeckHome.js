@@ -36,18 +36,17 @@ export default class DeckHomeScreen extends React.Component {
                 return (
                   <TouchableOpacity
                     key={deck.title}
-                    style={{
-                      height: 100,
-                      backgroundColor: 'tomato',
-                      margin: 15
-                    }}
+                    style={styles.deck}
                     onPress={() => {
                       this.props.navigation.navigate('DeckDetails', {
                         title: deck.title
                       });
                     }}>
-                    <Text>{deck.title}</Text>
-                    <Text>{deck.cards.length}</Text>
+                    <Text style={styles.deckText}>{deck.title}</Text>
+                    <Text>
+                      {deck.cards.length} card
+                      {deck.cards.length > 1 || !deck.cards.length ? 's' : ''}
+                    </Text>
                   </TouchableOpacity>
                 );
               }
@@ -65,9 +64,19 @@ DeckHomeScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    marginTop: 30
   },
   deck: {
-    height: 300
+    flex: 1,
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ccc',
+    margin: 5
+  },
+  deckText: {
+    fontSize: 20,
+    color: 'white'
   }
 });
