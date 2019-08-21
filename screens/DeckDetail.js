@@ -61,8 +61,8 @@ export default class DeckDetail extends React.Component {
               <View style={styles.button}>
                 <Button
                   onPress={() => {
-                    this.props.navigation.navigate('CardDetail', {
-                      title: deck.title
+                    this.props.navigation.navigate('Quiz', {
+                      deck
                     });
                   }}
                   title="Start quiz"

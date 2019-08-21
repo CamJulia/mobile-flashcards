@@ -4,7 +4,8 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  View
+  View,
+  ActivityIndicator
 } from 'react-native';
 import { getDecks } from '../src/storage';
 
@@ -24,6 +25,8 @@ export default class DeckHomeScreen extends React.Component {
   }
 
   render() {
+    if (!this.state.decks)
+      return <ActivityIndicator color="black" style={{ flex: 1 }} size={50} />;
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -44,6 +47,7 @@ export default class DeckHomeScreen extends React.Component {
                       });
                     }}>
                     <Text>{deck.title}</Text>
+                    <Text>{deck.cards.length}</Text>
                   </TouchableOpacity>
                 );
               }

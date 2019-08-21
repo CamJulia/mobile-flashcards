@@ -4,7 +4,8 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  View
+  View,
+  ActivityIndicator
 } from 'react-native';
 import { getDeck } from '../src/storage';
 
@@ -24,6 +25,8 @@ export default class AllCards extends React.Component {
   }
 
   render() {
+    if (!this.state.deck)
+      return <ActivityIndicator color="black" style={{ flex: 1 }} size={50} />;
     return (
       <View style={styles.container}>
         <ScrollView>
