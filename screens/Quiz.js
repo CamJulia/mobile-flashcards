@@ -24,6 +24,7 @@ export default class Quiz extends React.Component {
 
   async componentDidMount() {
     const { params } = this.props.navigation.state;
+    this.deck = JSON.parse(JSON.stringify(params.deck));
     this.setState({ deck: params.deck });
     this.cardIndex = this.getCardIndex(params.deck.cards);
   }
@@ -51,6 +52,20 @@ export default class Quiz extends React.Component {
           <Text style={{ fontSize: 24 }}>Your score:</Text>
           <Text style={{ fontSize: 20 }}>Correct {this.state.correct}</Text>
           <Text style={{ fontSize: 20 }}>Wrong {this.state.wrong}</Text>
+          <View>
+            <Button
+              title="restart quiz"
+              onPress={() => {
+                const deck = JSON.parse(JSON.stringify(this.deck));
+                this.setState({
+                  deck,
+                  showAnswer: false,
+                  correct: 0,
+                  wrong: 0
+                });
+              }}
+            />
+          </View>
         </View>
       );
     }
