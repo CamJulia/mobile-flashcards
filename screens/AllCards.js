@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  TouchableOpacity,
   ScrollView,
   StyleSheet,
   Text,
@@ -32,20 +31,12 @@ export default class AllCards extends React.Component {
         <ScrollView>
           {this.state.deck &&
             this.state.deck.cards.map(card => {
-              if (card.title) {
-                return (
-                  <TouchableOpacity
-                    key={card.title}
-                    style={{
-                      height: 100,
-                      backgroundColor: 'tomato',
-                      margin: 15
-                    }}>
-                    <Text>{card.title}</Text>
-                    <Text>{card.body}</Text>
-                  </TouchableOpacity>
-                );
-              }
+              return (
+                <View key={card.question} style={styles.card}>
+                  <Text style={styles.question}>{card.question}</Text>
+                  <Text style={styles.answer}>{card.answer}</Text>
+                </View>
+              );
             })}
         </ScrollView>
       </View>
@@ -66,7 +57,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff'
   },
-  deck: {
-    height: 300
+  card: {
+    flex: 1,
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'beige',
+    margin: 5
+  },
+  question: {
+    fontSize: 20,
+    color: 'brown'
+  },
+  answer: {
+    fontSize: 18,
+    color: 'brown'
   }
 });
