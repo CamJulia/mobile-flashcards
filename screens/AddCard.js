@@ -16,8 +16,8 @@ export default class AddCard extends React.Component {
 
     this.state = {
       deck: null,
-      title: '',
-      body: ''
+      question: '',
+      answer: ''
     };
   }
 
@@ -28,7 +28,7 @@ export default class AddCard extends React.Component {
   }
 
   render() {
-    const { deck, title, body } = this.state;
+    const { deck, question, answer } = this.state;
 
     if (!deck) return null;
 
@@ -44,9 +44,9 @@ export default class AddCard extends React.Component {
               borderColor: 'gray',
               borderWidth: 1
             }}
-            onChangeText={title => this.setState({ title })}
-            value={title}
-            placeholder="enter card title"
+            onChangeText={question => this.setState({ question })}
+            value={question}
+            placeholder="Enter the question here"
             autoCompleteType="off"
             autoCorrect={false}
           />
@@ -58,9 +58,9 @@ export default class AddCard extends React.Component {
               borderColor: 'gray',
               borderWidth: 1
             }}
-            onChangeText={body => this.setState({ body })}
-            value={body}
-            placeholder="enter card body"
+            onChangeText={answer => this.setState({ answer })}
+            value={answer}
+            placeholder="Enter the answer here"
             autoCompleteType="off"
             autoCorrect={false}
           />
@@ -68,8 +68,8 @@ export default class AddCard extends React.Component {
         <View style={{ marginVertical: 10 }}>
           <Button
             onPress={() => {
-              addCardToDeck(deck.title, { title, body });
-              this.setState({ title: '', body: '' });
+              addCardToDeck(deck.title, { question, answer });
+              this.setState({ question: '', answer: '' });
               this.props.navigation.goBack(null);
             }}
             title="create card"
