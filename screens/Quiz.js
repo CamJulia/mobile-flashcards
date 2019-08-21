@@ -61,6 +61,9 @@ export default class Quiz extends React.Component {
 
     return (
       <View style={styles.container}>
+        <View style={styles.remaining}>
+          <Text style={{ fontSize: 20 }}>{this.state.deck.cards.length}</Text>
+        </View>
         <View
           style={{
             flex: 1,
@@ -142,5 +145,15 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 20,
     justifyContent: 'space-between'
+  },
+  remaining: {
+    position: 'absolute',
+    height: 50,
+    width: 50,
+    backgroundColor: 'beige',
+    borderRadius: 99,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 5
   }
 });
