@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { TextInput, Button, View, Text, StyleSheet } from 'react-native';
 import { createDeck } from '../src/storage';
 
@@ -6,13 +6,22 @@ const CreateDeckScreen = () => {
   const [title, setTitle] = useState('');
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text>This is where we'll create new decks</Text>
+
       <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        style={{
+          height: 40,
+          marginVertical: 10,
+          paddingHorizontal: 5,
+          borderColor: 'gray',
+          borderWidth: 1
+        }}
         onChangeText={title => setTitle(title)}
         value={title}
-        placeholder="enter deck name"
+        placeholder="Enter deck name"
+        autoCompleteType="off"
+        autoCorrect={false}
       />
       <Button
         onPress={() => {
@@ -33,7 +42,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    margin: 20
   }
 });
 
