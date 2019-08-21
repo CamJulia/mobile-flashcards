@@ -33,28 +33,48 @@ export default class AddCard extends React.Component {
     if (!deck) return null;
 
     return (
-      <View style={{ margin: 20 }}>
-        <Text>This is where we'll create new cards</Text>
-        <TextInput
-          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-          onChangeText={title => this.setState({ title })}
-          value={title}
-          placeholder="enter card title"
-        />
-        <TextInput
-          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-          onChangeText={body => this.setState({ body })}
-          value={body}
-          placeholder="enter card body"
-        />
-        <Button
-          onPress={() => {
-            addCardToDeck(deck.title, { title, body });
-            this.setState({ title: '', body: '' });
-            this.props.navigation.goBack(null);
-          }}
-          title="create card"
-        />
+      <View style={styles.container}>
+        <View>
+          <Text>This is where we'll create new cards</Text>
+          <TextInput
+            style={{
+              height: 40,
+              marginVertical: 10,
+              paddingHorizontal: 5,
+              borderColor: 'gray',
+              borderWidth: 1
+            }}
+            onChangeText={title => this.setState({ title })}
+            value={title}
+            placeholder="enter card title"
+            autoCompleteType="off"
+            autoCorrect={false}
+          />
+          <TextInput
+            style={{
+              height: 40,
+              marginVertical: 10,
+              paddingHorizontal: 5,
+              borderColor: 'gray',
+              borderWidth: 1
+            }}
+            onChangeText={body => this.setState({ body })}
+            value={body}
+            placeholder="enter card body"
+            autoCompleteType="off"
+            autoCorrect={false}
+          />
+        </View>
+        <View style={{ marginVertical: 10 }}>
+          <Button
+            onPress={() => {
+              addCardToDeck(deck.title, { title, body });
+              this.setState({ title: '', body: '' });
+              this.props.navigation.goBack(null);
+            }}
+            title="create card"
+          />
+        </View>
       </View>
     );
   }
@@ -65,6 +85,7 @@ AddCard.navigationOptions = () => ({ title: 'Add Card to Deck' });
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'green'
+    margin: 20,
+    justifyContent: 'space-between'
   }
 });
